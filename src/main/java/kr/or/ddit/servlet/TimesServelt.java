@@ -8,8 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TimesServelt extends HttpServlet {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class TimesServelt extends HttpServlet {
+	
+	// kr.or.ddit.servlet.TimesServelt
+	private Logger logger = LoggerFactory.getLogger(TimesServelt.class);
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -18,8 +24,10 @@ public class TimesServelt extends HttpServlet {
 		// localhost/jsp/timeTables?param=6
 		String i = req.getParameter("i");
 		String j = req.getParameter("j");
-		System.out.println("i : " + i);
-		System.out.println("j : " + j);
+		
+		// trace / debug / info / warn / error
+		logger.debug("i : {}" , i);
+		logger.debug("j : {}" , j);
 		
 		PrintWriter printWriter = resp.getWriter();
 		printWriter.write("<html>");
@@ -32,12 +40,10 @@ public class TimesServelt extends HttpServlet {
 		printWriter.write("	<body>");
 		printWriter.write("	<table border='1'>");
 		
-		int si = Integer.parseInt(i);
-		int sj = Integer.parseInt(j);
 		
-		for(int k=1; k<=sj; k++){
+		for(int k=1; k<=Integer.parseInt(i); k++){
 			printWriter.write("		<tr>");
-			for(int l=2; l<=si; l++){
+			for(int l=2; l<=Integer.parseInt(j); l++){
 				printWriter.write("			<td>" + l + "*" + k + "=" + l * k + "</td>");
 			}
 			printWriter.write("		</tr>");
